@@ -5,6 +5,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework import serializers, viewsets, permissions
 from .models import ExpenseIncome
 from .serializers import ExpenseIncomeSerializer
+from rest_framework.exceptions import PermissionDenied, NotFound
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -43,6 +44,18 @@ class ExpenseIncomeViewSet(viewsets.ModelViewSet):
         if self.request.user.is_staff:
             return ExpenseIncome.objects.all()
         return ExpenseIncome.objects.filter(user=self.request.user)
+    
+    def get_object(self):
+        # Get the object without filtering by user (so it always fetches if exists)
+        obj = ExpenseIncome.objects.filter(pk=self.kwargs['pk']).first()
+        if obj is None:
+            raise NotFound(detail="ExpenseIncome not found.")
+
+        # Check permissions manually
+        if not (obj.user == self.request.user or self.request.user.is_staff):
+            raise PermissionDenied(detail="You do not have permission to perform this action.")
+
+        return obj
 
     def perform_create(self, serializer):
         # Automatically assign the logged-in user as the owner when creating a new record
