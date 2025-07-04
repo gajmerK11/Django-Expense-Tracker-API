@@ -240,7 +240,24 @@ Authorization: Bearer <admin_token>
 
 ---
 
+## ✅ Postman Test Cases (with Screenshots)
+
+All test cases mentioned in the checklist have been manually tested using **Postman**. A complete visual report is provided in the [`test_case.pdf`](./test_case.pdf) file located in the root of this repository.
+
+📄 **Contents of `test_case.pdf` include:**
+
+- 🔐 User registration & login (valid/invalid)
+- 🔄 Token refresh
+- ✅ Authenticated and unauthenticated API access
+- ✏️ CRUD operations (Create, Read, Update, Delete)
+- 🔍 Permission tests (user vs superuser)
+- 💰 Business logic validation (flat & percentage tax)
+
+> 👉 **To view the test results**, open `test_case.pdf` from the GitHub repo or download it directly.
+
+---
+
 ## 📬 Contact
 
-> Internship Project by Kumar Gajmer
+> Internship Project by Kumar Gajmer  
 > For queries, contact: gajmerk9@gmail.com
